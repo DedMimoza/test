@@ -31,7 +31,10 @@
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-
+<div id="zoom-slider">
+    <label for="zoom">Zoom:</label>
+    <input type="range" id="zoom" min="20" max="100" value="70">
+  </div>
   <a-scene 
     embedded 
     vr-mode-ui="enabled: false" 
@@ -61,9 +64,19 @@
   </a-scene>
 <script>
     const loader = document.querySelector('.arjs-loader');
+    const zoomSlider = document.getElementById('zoom');
+    const camera = document.getElementById('camera');
+
+    // Скрыть загрузчик
     const hideLoader = () => {
       loader.style.display = 'none';
     };
+
+    // Изменить FOV камеры в зависимости от положения ползунка
+    zoomSlider.addEventListener('input', (event) => {
+      const fovValue = event.target.value;
+      camera.setAttribute('camera', `fov: ${fovValue}`);
+    });
 
     document.querySelector('a-scene').addEventListener('loaded', hideLoader);
   </script>
