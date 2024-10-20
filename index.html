@@ -59,7 +59,14 @@
     <!-- Add the camera -->
     <a-entity camera></a-entity>
   </a-scene>
+<script>
+    const loader = document.querySelector('.arjs-loader');
+    const hideLoader = () => {
+      loader.style.display = 'none';
+    };
 
+    document.querySelector('a-scene').addEventListener('loaded', hideLoader);
+  </script>
   
 </body>
 </html>
