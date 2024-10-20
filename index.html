@@ -61,30 +61,6 @@
     <a-entity camera></a-entity>
   </a-scene>
 
-  <script>
-    // JavaScript to customize the AR.js session
-    document.addEventListener('DOMContentLoaded', () => {
-      const scene = document.querySelector('a-scene');
-
-      // Custom handling for AR.js loading event
-      scene.addEventListener('arjs-nft-loaded', () => {
-        // Hide the loading screen
-        document.querySelector('.arjs-loader').style.display = 'none';
-      });
-
-      scene.addEventListener('arjs-markerFound', function (event) {
-        console.log('Marker found:', event.target);
-      });
-
-      scene.addEventListener('arjs-markerLost', function (event) {
-        console.log('Marker lost:', event.target);
-      });
-
-      // Show the loading screen while assets are loading
-      window.addEventListener('arjs-nft-load', function () {
-        document.querySelector('.arjs-loader').style.display = 'flex';
-      });
-    });
-  </script>
+  
 </body>
 </html>
