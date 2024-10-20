@@ -99,14 +99,7 @@
     });
 
     // Показать сообщение при обнаружении маркера
-    nftMarker.addEventListener('nft-found', () => {
-      markerMessage.style.display = 'block';
-    });
-
-    // Скрыть сообщение при потере маркера
-    nftMarker.addEventListener('nft-lost', () => {
-      markerMessage.style.display = 'none';
-    });
+    
 
     document.querySelector('a-scene').addEventListener('loaded', hideLoader);
   </script>
