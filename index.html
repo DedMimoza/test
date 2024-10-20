@@ -33,6 +33,17 @@
       padding: 10px;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+        #marker-message {
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+      display: none; /* Скрыть сообщение по умолчанию */
+    }
   </style>
 </head>
 <body style="margin: 0px; overflow: hidden;">
@@ -44,6 +55,9 @@
     <label for="zoom">Zoom:</label>
     <input type="range" id="zoom" min="20" max="100" value="70">
   </div>
+
+   <div id="marker-message">Marker detected!</div> <!-- Сообщение при обнаружении -->
+
   <a-scene 
     embedded 
     vr-mode-ui="enabled: false" 
@@ -71,10 +85,12 @@
     <!-- Add the camera -->
     <a-entity camera></a-entity>
   </a-scene>
-<script>
+ <script>
     const loader = document.querySelector('.arjs-loader');
     const zoomSlider = document.getElementById('zoom');
     const camera = document.getElementById('camera');
+    const markerMessage = document.getElementById('marker-message');
+    const nftMarker = document.getElementById('nft-marker');
 
     // Скрыть загрузчик
     const hideLoader = () => {
@@ -87,8 +103,17 @@
       camera.setAttribute('camera', `fov: ${fovValue}`);
     });
 
+    // Показать сообщение при обнаружении маркера
+    nftMarker.addEventListener('nft-found', () => {
+      markerMessage.style.display = 'block';
+    });
+
+    // Скрыть сообщение при потере маркера
+    nftMarker.addEventListener('nft-lost', () => {
+      markerMessage.style.display = 'none';
+    });
+
     document.querySelector('a-scene').addEventListener('loaded', hideLoader);
   </script>
-  
 </body>
 </html>
