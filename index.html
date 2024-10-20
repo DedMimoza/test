@@ -1,107 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR.js Example with Zoom Slider</title>
-  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  <style>
-    .arjs-loader {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 1.25em;
-    }
-    #zoom-slider {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 1000;
-      background: white;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    #marker-message {
-      position: absolute;
-      top: 50px;
-      left: 10px;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 10px;
-      border-radius: 5px;
-      display: none; /* Скрыть сообщение по умолчанию */
-    }
-  </style>
-</head>
-<body style="margin: 0; overflow: hidden;">
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded -->
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-
-  <div id="zoom-slider">
-    <label for="zoom">Zoom:</label>
-    <input type="range" id="zoom" min="20" max="100" value="70">
-  </div>
-
-  <div id="marker-message">Marker detected!</div> <!-- Сообщение при обнаружении -->
-
   <a-scene
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: true;"
+    vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true; precision: medium;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
   >
+    <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
     <a-nft
       type="nft"
-      url="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/hiro/hiro-image/hiro" <!-- Используем маркер hiro -->
+      url="your-server/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
       smooth="true"
       smoothCount="10"
       smoothTolerance=".01"
       smoothThreshold="5"
-      id="nft-marker" <!-- ID для работы с событием -->
     >
-      <a-box 
+       <a-box 
         position="0 0.5 0" 
         rotation="0 45 0" 
-        scale="0.3 0.3 0.3" 
+        scale="5 5 5" 
         color="#4CC3D2">
       </a-box>
+      </a-entity>
     </a-nft>
-
-    <a-entity id="camera" camera="fov: 70" position="0 1.6 2"></a-entity>
+    <a-entity camera></a-entity>
   </a-scene>
-
-  <script>
-    // Весь JavaScript теперь внизу, после загрузки всех элементов
-    const loader = document.querySelector('.arjs-loader');
-    const zoomSlider = document.getElementById('zoom');
-    const camera = document.getElementById('camera');
-    const markerMessage = document.getElementById('marker-message');
-    const nftMarker = document.getElementById('nft-marker');
-
-    // Скрыть загрузчик
-    const hideLoader = () => {
-      loader.style.display = 'none';
-    };
-
-    // Изменить FOV камеры в зависимости от положения ползунка
-    zoomSlider.addEventListener('input', (event) => {
-      const fovValue = event.target.value;
-      camera.setAttribute('camera', `fov: ${fovValue}`);
-    });
-
-    // Показать сообщение при обнаружении маркера
-    
-
-    document.querySelector('a-scene').addEventListener('loaded', hideLoader);
-  </script>
 </body>
-</html>
